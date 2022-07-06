@@ -64,8 +64,9 @@ def members_handler():
         new_car = CarsModel(name=request.form['name'], model=request.form['model'], doors=request.form['doors'])
         db.session.add(new_car)
         db.session.commit()
+        html_to_send = render_template('index.html', members=results)
 
-        return {"message": f"car {new_car.name} has been created successfully."}
+        return html_to_send
     
     elif request.method == 'GET':
         cars = CarsModel.query.all()
