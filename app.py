@@ -39,7 +39,6 @@ def handle_cars():
         # if request.is_json:
             data = request.get_json()
             new_car = CarsModel(name=data['name'], model=data['model'], doors=data['doors'])
-            # new_car = CarsModel(name=request.json['name'], model=request.json['model'], doors=request.json['doors'])
             db.session.add(new_car)
             db.session.commit()
             return {"message": f"car {new_car.name} has been created successfully."}
@@ -62,11 +61,9 @@ def handle_cars():
 def members_handler():
     if request.method == 'POST': 
         new_car = CarsModel(name=request.form['Name'], model=request.form['model'], doors=request.form['doors'])
-        # obj = { "name": request.form['Name'], 'model': request.form['model'], 'doors': request.form['doors']}
         db.session.add(new_car)
         db.session.commit()
-        # resp, code = members.create(jsonify(obj))
-        # html_to_send = render_template('index.html', members = resp)
+
         return {"message": f"car {new_car.name} has been created successfully."}
     
     elif request.method == 'GET':
