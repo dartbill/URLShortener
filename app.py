@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -38,7 +38,6 @@ def handle_cars():
     if request.method == 'POST':
         # if request.is_json:
             data = request.get_json()
-            print(data)
             new_car = CarsModel(name=data['name'], model=data['model'], doors=data['doors'])
             # new_car = CarsModel(name=request.json['name'], model=request.json['model'], doors=request.json['doors'])
             db.session.add(new_car)
@@ -57,3 +56,27 @@ def handle_cars():
             } for car in cars]
 
         return {"count": len(results), "cars": results}
+
+
+@app.route('/form', methods=['GET', 'POST'])
+def members_handler():
+    if request.method == 'POST': 
+        new_car = CarsModel(name=request.form['Name'], model=request.form['model'], doors=request.form['doors'])
+        # obj = { "name": request.form['Name'], 'model': request.form['model'], 'doors': request.form['doors']}
+        db.session.add(new_car)
+        db.session.commit()
+        # resp, code = members.create(jsonify(obj))
+        # html_to_send = render_template('index.html', members = resp)
+        return {"message": f"car {new_car.name} has been created successfully."}
+    
+    elif request.method == 'GET':
+        cars = CarsModel.query.all()
+        results = [
+            {
+                "name": car.name,
+                "model": car.model,
+                "doors": car.doors
+            } for car in cars]
+        # resp, code = members.index(request)
+        html_to_send = render_template('index.html', members=results)
+        return html_to_send
