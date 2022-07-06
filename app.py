@@ -11,9 +11,9 @@ migrate = Migrate(app, db)
 CORS(app)
 
 
-@app.route('/')
-def hello():
-    return jsonify({"hello": "world"}),200
+# @app.route('/')
+# def hello():
+#     return jsonify({"hello": "world"}),200
 
 
 class CarsModel(db.Model):
@@ -57,10 +57,11 @@ def handle_cars():
         return {"count": len(results), "cars": results}
 
 
-@app.route('/form', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def members_handler():
     if request.method == 'POST':
-
+        data = request.form()
+        console.log(data)
         new_car = CarsModel(jsonify(name=request.form['Name'], model=request.form['model'], doors=request.form['doors']))
         db.session.add(new_car)
         db.session.commit()
