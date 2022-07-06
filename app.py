@@ -38,6 +38,7 @@ def handle_cars():
     if request.method == 'POST':
         # if request.is_json:
             data = request.get_json()
+            print(data)
             new_car = CarsModel(name=data['name'], model=data['model'], doors=data['doors'])
             # new_car = CarsModel(name=request.json['name'], model=request.json['model'], doors=request.json['doors'])
             db.session.add(new_car)
