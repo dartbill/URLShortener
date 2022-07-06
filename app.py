@@ -64,9 +64,16 @@ def members_handler():
         new_car = CarsModel(name=request.form['name'], model=request.form['model'], doors=request.form['doors'])
         db.session.add(new_car)
         db.session.commit()
-        html_to_send = render_template('index.html', members=results)
+        
+        cars = CarsModel.query.all()
+        results = [
+            {
+                "name": car.name,
+                "model": car.model,
+                "doors": car.doors
+            } for car in cars]
 
-        return html_to_send
+        return render_template('index.html', members=results)
     
     elif request.method == 'GET':
         cars = CarsModel.query.all()
