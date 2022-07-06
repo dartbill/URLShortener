@@ -61,7 +61,7 @@ def handle_cars():
 def members_handler():
     if request.method == 'POST':
 
-        new_car = CarsModel(jsonify(name=request.form['name'], model=request.form['model'], doors=request.form['doors']))
+        new_car = CarsModel(name=request.form['name'], model=request.form['model'], doors=request.form['doors'])
         db.session.add(new_car)
         db.session.commit()
 
