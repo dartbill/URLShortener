@@ -92,7 +92,7 @@ def members_handler():
 
     elif request.method == 'PATCH':
         car = CarsModel.query.filter_by(id=2)
-
+        car.update({car.model: 'vw'})
         # car.doors = 1000
         db.session.commit()
 
