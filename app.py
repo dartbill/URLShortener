@@ -20,7 +20,7 @@ CORS(app)
 class CarsModel(db.Model):
     __tablename__ = 'cars'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String())
     model = db.Column(db.String())
     doors = db.Column(db.Integer())
