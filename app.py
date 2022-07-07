@@ -91,7 +91,7 @@ def members_handler():
         return {"message": f"car has been deleted successfully."}
 
     elif request.method == 'PATCH':
-        car = CarsModel.query.filter_by(id=2)
+        car = CarsModel.query.filter_by(id=2).update()
         car.doors = 1000
         db.session.commit()
 
