@@ -54,7 +54,7 @@ def handle_cars():
         return {"count": len(results), "cars": results}
 
 
-@app.route('/', methods=['GET', 'POST', 'DELETE', 'PATCH'])
+@app.route('/', methods=['GET', 'POST', 'DELETE', 'PUT'])
 def members_handler():
     if request.method == 'POST':
 
@@ -90,9 +90,9 @@ def members_handler():
 
         return {"message": f"car has been deleted successfully."}
 
-    elif request.method == 'PATCH':
+    elif request.method == 'PUT':
         car = CarsModel.query.filter_by(id=2)
-        car.update({car.model: 'vw'})
+        car.update(model='vw')
         # car.doors = 1000
         db.session.commit()
 
