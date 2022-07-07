@@ -2,10 +2,11 @@ from flask import Flask, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
-import os 
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("://", "ql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL').replace("://", "ql://", 1)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 CORS(app)
@@ -37,11 +38,12 @@ class CarsModel(db.Model):
 def handle_cars():
     if request.method == 'POST':
         # if request.is_json:
-            data = request.get_json()
-            new_car = CarsModel(name=data['name'], model=data['model'], doors=data['doors'])
-            db.session.add(new_car)
-            db.session.commit()
-            return {"message": f"car {new_car.name} has been created successfully."}
+        data = request.get_json()
+        new_car = CarsModel(name=data['name'],
+                            model=data['model'], doors=data['doors'])
+        db.session.add(new_car)
+        db.session.commit()
+        return {"message": f"car {new_car.name} has been created successfully."}
         # else:
         #     return {"error": "The request payload is not in JSON format"}
 
@@ -54,18 +56,17 @@ def handle_cars():
                 "doors": car.doors
             } for car in cars]
         return {"count": len(results), "cars": results}
-    
-
 
 
 @app.route('/', methods=['GET', 'POST', 'DELETE'])
 def members_handler():
     if request.method == 'POST':
 
-        new_car = CarsModel(name=request.form['name'], model=request.form['model'], doors=request.form['doors'])
+        new_car = CarsModel(
+            name=request.form['name'], model=request.form['model'], doors=request.form['doors'])
         db.session.add(new_car)
         db.session.commit()
-        
+
         cars = CarsModel.query.all()
         results = [
             {
@@ -75,7 +76,7 @@ def members_handler():
             } for car in cars]
 
         return render_template('index.html', members=results)
-    
+
     elif request.method == 'GET':
         cars = CarsModel.query.all()
         results = [
@@ -84,13 +85,11 @@ def members_handler():
                 "model": car.model,
                 "doors": car.doors
             } for car in cars]
-        # resp, code = members.index(request)
         html_to_send = render_template('index.html', members=results)
         return html_to_send
 
     elif request.method == 'DELETE':
-        car = CarsModel.query.filter_by(model='vw').delete()
-        # db.session.delete(car)
+        CarsModel.query.filter_by(model='vw').delete()
         db.session.commit()
 
-        return {"message": f"car {car.name} has been deleted successfully."}
+        return {"message": f"car has been deleted successfully."}
