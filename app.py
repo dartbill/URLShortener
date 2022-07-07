@@ -25,7 +25,7 @@ class CarsModel(db.Model):
     model = db.Column(db.String())
     doors = db.Column(db.Integer())
 
-    def __init__(self, name, model, doors):
+    def __init__(self, id, name, model, doors):
         self.id = id
         self.name = name
         self.model = model
