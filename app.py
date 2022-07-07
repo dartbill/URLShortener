@@ -54,7 +54,7 @@ def handle_cars():
         return {"count": len(results), "cars": results}
 
 
-@app.route('/', methods=['GET', 'POST', 'DELETE', 'PUT'])
+@app.route('/', methods=['GET', 'POST', 'DELETE', 'PATCH'])
 def members_handler():
     if request.method == 'POST':
 
@@ -90,7 +90,7 @@ def members_handler():
 
         return {"message": f"car has been deleted successfully."}
 
-    elif request.method == 'PUT':
+    elif request.method == 'PATCH':
         # car = CarsModel.query.filter(id=2).first()
         # car.update(model='vw')
         # car.doors = 1000
