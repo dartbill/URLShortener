@@ -25,8 +25,7 @@ class CarsModel(db.Model):
     model = db.Column(db.String())
     doors = db.Column(db.Integer())
 
-    def __init__(self, id, name, model, doors):
-        self.id = id
+    def __init__(self, name, model, doors):
         self.name = name
         self.model = model
         self.doors = doors
@@ -52,6 +51,7 @@ def handle_cars():
         cars = CarsModel.query.all()
         results = [
             {
+                "id": car.id,
                 "name": car.name,
                 "model": car.model,
                 "doors": car.doors
