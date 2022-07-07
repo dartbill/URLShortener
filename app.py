@@ -58,7 +58,7 @@ def handle_cars():
 
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST', 'DELETE'])
 def members_handler():
     if request.method == 'POST':
 
