@@ -55,12 +55,7 @@ def handle_cars():
             } for car in cars]
         return {"count": len(results), "cars": results}
     
-    elif request.method == 'DELETE':
-        cars = CarsModel.query.filter_by(model='vw')
-        db.session.delete(cars)
-        db.session.commit()
 
-        return {"message": f"car {cars.name} has been deleted successfully."}
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -92,3 +87,10 @@ def members_handler():
         # resp, code = members.index(request)
         html_to_send = render_template('index.html', members=results)
         return html_to_send
+
+    elif request.method == 'DELETE':
+        car = CarsModel.query.filter_by(model=['vw'])
+        db.session.delete(car)
+        db.session.commit()
+
+        return {"message": f"car {car.name} has been deleted successfully."}
