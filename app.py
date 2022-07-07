@@ -12,11 +12,6 @@ migrate = Migrate(app, db)
 CORS(app)
 
 
-# @app.route('/')
-# def hello():
-#     return jsonify({"hello": "world"}),200
-
-
 class CarsModel(db.Model):
     __tablename__ = 'cars'
 
@@ -90,7 +85,7 @@ def members_handler():
         return html_to_send
 
     elif request.method == 'DELETE':
-        CarsModel.query.filter_by(model='vw').delete()
+        CarsModel.query.filter_by(id=10).delete()
         db.session.commit()
 
         return {"message": f"car has been deleted successfully."}
