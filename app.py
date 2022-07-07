@@ -89,7 +89,7 @@ def members_handler():
         return html_to_send
 
     elif request.method == 'DELETE':
-        car = CarsModel.query.filter_by(model=['vw']).delete()
+        car = CarsModel.query.filter_by(model='vw').delete()
         # db.session.delete(car)
         db.session.commit()
 
