@@ -33,7 +33,7 @@ class CarsModel(db.Model):
         return f"<Car {self.name}>"
 
 
-@app.route('/cars', methods=['POST', 'GET'])
+@app.route('/cars', methods=['POST', 'GET', 'DELETE'])
 def handle_cars():
     if request.method == 'POST':
         # if request.is_json:
@@ -53,8 +53,14 @@ def handle_cars():
                 "model": car.model,
                 "doors": car.doors
             } for car in cars]
-
         return {"count": len(results), "cars": results}
+    
+    elif request.method == 'DELETE':
+        cars = CarsModel.query.filter_by(model='vw')
+        db.session.delete(cars)
+        db.session.commit()
+
+        return {"message": f"car {cars.name} has been deleted successfully."}
 
 
 @app.route('/', methods=['GET', 'POST'])
