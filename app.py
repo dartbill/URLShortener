@@ -54,6 +54,13 @@ def handle_cars():
         return {"count": len(results), "cars": results}
 
 
+@app.route('/cars/<id>', methods=['GET'])
+def handle_cars(id):
+    if request.method == 'GET':
+        car = db.session.get(id)
+        return car
+
+
 @app.route('/', methods=['GET', 'POST', 'DELETE', 'PATCH'])
 def members_handler():
     if request.method == 'POST':
