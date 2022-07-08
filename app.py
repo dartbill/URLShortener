@@ -58,7 +58,13 @@ def handle_cars():
 def get_single_car(id):
     if request.method == 'GET':
         car = CarsModel.query.get(id)
-        return car
+        results = {
+            "id": car.id,
+            "name": car.name,
+            "model": car.model,
+            "doors": car.doors
+        }
+        return results
 
 
 @app.route('/', methods=['GET', 'POST', 'DELETE', 'PATCH'])
