@@ -54,7 +54,7 @@ def handle_cars():
         return {"count": len(results), "cars": results}
 
 
-@app.route('/cars/<id>', methods=['GET'])
+@app.route('/cars/<id>', methods=['GET', 'DELETE', 'PATCH'])
 def get_single_car(id):
     if request.method == 'GET':
         car = CarsModel.query.get(id)
@@ -65,6 +65,19 @@ def get_single_car(id):
             "doors": car.doors
         }
         return results
+
+    elif request.method == 'DELETE':
+        CarsModel.query.filter_by(id).delete()
+        db.session.commit()
+
+        return {"message": f"car has been deleted successfully."}
+    elif request.method == 'PATCH':
+        data = request.get_json()
+        db.session.query(CarsModel).filter(
+            CarsModel.id == id).update({'model': data['model']})
+        db.session.commit()
+
+        return {"message": f"car has  been updated successfully."}
 
 
 @app.route('/', methods=['GET', 'POST', 'DELETE', 'PATCH'])
