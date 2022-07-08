@@ -57,7 +57,7 @@ def handle_cars():
 @app.route('/cars/<id>', methods=['GET'])
 def get_single_car(id):
     if request.method == 'GET':
-        car = db.session.get(id)
+        car = CarsModel.query.get(id)
         return car
 
 
