@@ -67,7 +67,7 @@ def get_single_car(id):
         return results
 
     elif request.method == 'DELETE':
-        CarsModel.query.get(id).delete()
+        CarsModel.query.filter_by(id=id).delete()
         db.session.commit()
 
         return {"message": f"car has been deleted successfully."}
