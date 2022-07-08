@@ -67,10 +67,11 @@ def get_single_car(id):
         return results
 
     elif request.method == 'DELETE':
-        CarsModel.query.filter_by(id).delete()
+        CarsModel.query.get(id).delete()
         db.session.commit()
 
         return {"message": f"car has been deleted successfully."}
+
     elif request.method == 'PATCH':
         data = request.get_json()
         db.session.query(CarsModel).filter(
