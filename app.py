@@ -4,12 +4,15 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 import os
 
+# connect to sql db on heroku
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL').replace("://", "ql://", 1)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 CORS(app)
+
+# set up car model
 
 
 class CarsModel(db.Model):
@@ -27,6 +30,8 @@ class CarsModel(db.Model):
 
     def __repr__(self):
         return f"<Car {self.name}>"
+
+# this stuff returns json
 
 
 @app.route('/cars', methods=['POST', 'GET', 'DELETE'])
@@ -52,6 +57,8 @@ def handle_cars():
                 "doors": car.doors
             } for car in cars]
         return {"count": len(results), "cars": results}
+
+# crud get by ids
 
 
 @app.route('/cars/<id>', methods=['GET', 'DELETE', 'PATCH'])
@@ -79,6 +86,8 @@ def get_single_car(id):
         db.session.commit()
 
         return {"message": f"car has  been updated successfully."}
+
+# these routes use templates
 
 
 @app.route('/', methods=['GET', 'POST', 'DELETE', 'PATCH'])
