@@ -35,8 +35,12 @@ def members_handler():
         data = request.get_json()
         # check to see if we have got the url in db if so, reroute to the url
         # get all long urls from db and check to see if form data matches anything in db
-        # if form data matches -> redirect user to the shorten url
+        # this below might work?? not sure what it returns if no query is found
+        if URLModel.query.filter_by(url=data['url']):
+            # if this is true then we get the short url that links to the long one and redirect
+            pass
         # if not do the below
+        # this gets the form input
         short_url = data['url']
         # do something here to shorten url
         # below adds long url and short url to the model
@@ -52,3 +56,17 @@ def members_handler():
     elif request.method == 'GET':
         html_to_send = render_template('index.html')
         return html_to_send
+
+
+@app.route('/<shorturl>', methods=['GET'])
+def redirect_shorturl(shorturl):
+    # this takes the url from the user
+    url = URLModel.query.filter_by(short_url=shorturl)
+    # this is then where we need to grab the long url from the db
+    # redirect using url.url or something?
+    # then we redirect the page
+    pass
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
