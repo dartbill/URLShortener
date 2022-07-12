@@ -34,12 +34,15 @@ class URLModel(db.Model):
 def handle_cars():
     if request.method == 'POST':
         # if request.is_json:
+        # if statement to check to see whether url is in db or not
+
         data = request.get_json()
-        new_car = CarsModel(name=data['name'],
-                            model=data['model'], doors=data['doors'])
-        db.session.add(new_car)
+        short_url = 'do something here to shorten the url'
+        new_url = URLModel(url=data['url'], short_url=short_url)
+        db.session.add(new_url)
         db.session.commit()
-        return {"message": f"car {new_car.name} has been created successfully."}
+        return {"message": f"car {new_url.short_url} has been created successfully."}
+        # this is where we then redirect to the page
         # else:
         #     return {"error": "The request payload is not in JSON format"}
 
