@@ -94,12 +94,5 @@ def members_handler():
         return render_template('index.html', members=results)
 
     elif request.method == 'GET':
-        cars = CarsModel.query.all()
-        results = [
-            {
-                "name": car.name,
-                "model": car.model,
-                "doors": car.doors
-            } for car in cars]
-        html_to_send = render_template('index.html', members=results)
+        html_to_send = render_template('index.html')
         return html_to_send
