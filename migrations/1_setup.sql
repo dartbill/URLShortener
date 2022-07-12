@@ -1,8 +1,7 @@
-DROP TABLE IF EXISTS cars;
+DROP TABLE IF EXISTS urls;
 
-CREATE TABLE cars (
+CREATE TABLE urls (
   id serial PRIMARY KEY,
-  name varchar(50) NOT NULL,
-  model varchar(50) NOT NULL,
-  doors int NOT NULL
+  url varchar(500) NOT NULL,
+  short_url varchar(50) NOT NULL
 );
