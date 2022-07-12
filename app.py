@@ -12,24 +12,20 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 CORS(app)
 
-# set up car model
 
-
-class CarsModel(db.Model):
-    __tablename__ = 'cars'
+class URLModel(db.Model):
+    __tablename__ = 'urls'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column(db.String())
-    model = db.Column(db.String())
-    doors = db.Column(db.Integer())
+    url = db.Column(db.String())
+    short_url = db.Column(db.String())
 
-    def __init__(self, name, model, doors):
-        self.name = name
-        self.model = model
-        self.doors = doors
+    def __init__(self, url, short_url):
+        self.url = url
+        self.short_url = short_url
 
     def __repr__(self):
-        return f"<Car {self.name}>"
+        return f"<Url {self.name}>"
 
 # this stuff returns json
 
