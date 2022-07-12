@@ -10,6 +10,8 @@ flask-cors = "*"
 flask-sqlalchemy = "*"
 psycopg2 = "*"
 flask-migrate = "*"
+pytest = "*"
+"sqlalchemy.orm" = "*"
 
 [dev-packages]
 pep8 = "*"
