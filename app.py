@@ -34,7 +34,7 @@ class URLModel(db.Model):
         self.short_url = short_url
 
     def __repr__(self):
-        return f"<Url {self.name}>"
+        return f"<Url {self.url}>"
 
 
 @app.route('/', methods=['GET', 'POST'])
