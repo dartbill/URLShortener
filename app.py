@@ -41,7 +41,7 @@ class URLModel(db.Model):
 def members_handler():
     # shortern url here on post + store in db with original url
     if request.method == 'POST':
-        data = request.get_json()
+        data = request.form['url']
         print(data)
         # check to see if we have got the url in db if so, reroute to the url
         # get all long urls from db and check to see if form data matches anything in db
@@ -55,7 +55,7 @@ def members_handler():
         short_url = get_random_string(6)
         # do something here to shorten url
         # below adds long url and short url to the model
-        new_url = URLModel(url=data['url'], short_url=short_url)
+        new_url = URLModel(url=data, short_url=short_url)
         # below adds new_url to the db
         db.session.add(new_url)
         # below saves the data
