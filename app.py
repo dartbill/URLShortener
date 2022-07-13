@@ -72,9 +72,10 @@ def members_handler():
 @app.route('/<shorturl>', methods=['GET'])
 def redirect_shorturl(shorturl):
     # this takes the url from the user
-    url = URLModel.query.filter_by(short_url=shorturl)
+    url = URLModel.query.filter_by(short_url=shorturl).first()
     print(url)
     long_url = url['url']
+    print(long_url)
     # this is then where we need to grab the long url from the db
     # redirect using url.url or something?
     # then we redirect the page
