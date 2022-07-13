@@ -60,7 +60,8 @@ def members_handler():
         db.session.add(new_url)
         # below saves the data
         db.session.commit()
-        return redirect(f'https://flaskshorturl.herokuapp.com/{short_url}')
+        # return redirect(f'https://flaskshorturl.herokuapp.com/{short_url}')
+        return {'WORKING '}
 
 # this is the home route should just render the for
     elif request.method == 'GET':
