@@ -1,0 +1,25 @@
+body {
+   font-size: 1em;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px ;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 4%;
+}
+
+input {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin: 0;
+}
+
+input:invalid {
+    background-color: ivory;
+    border: none;
+    outline: 2px solid red;
+    border-radius: 5px;
+}

@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Writing from index.html</h1>
+<h1>URL Shortener</h1>
 
-
-<h1>Shorten a Url</h1>
+<!-- <form class="mt-3 mx-3" method="POST" action="/">
+  <label for="url">Input URL</label>
+  <input type="text" id="url" name="url" autofocus>
+  <input type="submit" value="submit">
+</form> -->
 
 <form class="mt-3 mx-3" method="POST" action="/">
-  <label for="url">Input URL</label>
-  <input type="text" id="url" name="url">
-
-  <input type="submit" value="submit">
+  <input class="form-control" type="url" id="url" name="url" placeholder="Enter URL" pattern="https://.*" required autofocus>
+  <!-- <input type="text" id="url" name="url" placeholder="Enter URL" class="form-control" autofocus> -->
+  <input class="mt-4" type="submit" value="submit">
 </form>
 
 <a href={{link}}>{{link}}</a>
+<p>{{text}}</p>
 
 {% endblock %}
