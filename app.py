@@ -51,7 +51,7 @@ def members_handler():
             main = URLModel.query.filter_by(url=data).first()
             #     # if this is true then we get the short url that links to the long one and redirect
             # return {'message': 'this is true'}
-            return render_template('index.html', link=f'https://flaskshorturl.herokuapp.com/{main.short_url}')
+            return render_template('link.html', link=f'https://flaskshorturl.herokuapp.com/{main.short_url}')
 
         else:
             # if not do the below
