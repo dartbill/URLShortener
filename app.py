@@ -84,11 +84,18 @@ def redirect_shorturl(shorturl):
     return {'message': f'Oops! {html.escape(url)}'}
 
 
-# handle 404
+#handle 404
 @app.errorhandler(404)
 def page_not_found(e):
     path = request.path
     return render_template('errors/404.html',path=path),404
+
+#handle 405
+@app.errorhandler(405)
+def page_not_found(e):
+    path = request.path
+    return render_template('errors/405.html',path=path),405
+
 
 #handle 500
 @app.errorhandler(500)
