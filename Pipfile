@@ -12,6 +12,7 @@ psycopg2 = "*"
 flask-migrate = "*"
 pytest = "*"
 "sqlalchemy.orm" = "*"
+werkzeug = "*"
 
 [dev-packages]
 pep8 = "*"

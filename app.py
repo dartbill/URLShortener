@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+from werkzeug import exceptions
 import os
 
 # connect to sql db on heroku
@@ -66,6 +67,21 @@ def redirect_shorturl(shorturl):
     # redirect using url.url or something?
     # then we redirect the page
     pass
+
+
+@app.errorhandler(exceptions.NotFound)
+def handle_404(err):
+    return {'message': f'Oops! {err}'}, 404
+
+
+@app.errorhandler(exceptions.BadRequest)
+def handle_400(err):
+    return {'message': f'Oops! {err}'}, 400
+
+
+@app.errorhandler(exceptions.InternalServerError)
+def handle_500(err):
+    return {'message': f"It's not you, it's us"}, 500
 
 
 if __name__ == "__main__":
