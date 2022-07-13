@@ -10,6 +10,13 @@ The link to the website is here: https://flaskshorturl.herokuapp.com/
 
 To use the website, input a url and a new short url will be generated for you to save.
 
+## Installation 
+
+- Clone repo and `cd` into folder
+- Pipenv shell
+- Pipenv install
+- pipenv run dev
+
 ## Contributors
 
 - <a href="https://github.com/dartbill">Billie Dartnell</a>
