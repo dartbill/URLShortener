@@ -16,11 +16,15 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 CORS(app)
 
+# generates a random string of letters
+
 
 def get_random_string(length):
     result_str = ''.join(random.choice(string.ascii_letters)
                          for i in range(length))
     return result_str
+
+# define class
 
 
 class URLModel(db.Model):
@@ -40,33 +44,24 @@ class URLModel(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def members_handler():
-    # shortern url here on post + store in db with original url
     if request.method == 'POST':
+        # get data from form
         data = request.form['url']
-        print(data)
-        # check to see if we have got the url in db if so, reroute to the url
-        # get all long urls from db and check to see if form data matches anything in db
-        # this below might work?? not sure what it returns if no query is found
+        # check to see if the url has been used before
         if URLModel.query.filter_by(url=data).first() is not None:
             main = URLModel.query.filter_by(url=data).first()
-            #     # if this is true then we get the short url that links to the long one and redirect
-            # return {'message': 'this is true'}
+            # return link already stored in db
             return render_template('link.html', link=f'https://flaskshorturl.herokuapp.com/{main.short_url}')
-
         else:
-            # if not do the below
-            # this gets the form input
-            short_url = get_random_string(6)
-        # do something here to shorten url
-        # below adds long url and short url to the model
+            # generate random string of characters
+            short_url = get_random_string(10)
+            # create new url obg
             new_url = URLModel(url=data, short_url=short_url)
-        # below adds new_url to the db
+            # add url to db
             db.session.add(new_url)
-        # below saves the data
             db.session.commit()
+            # render link on page
             return render_template('index.html', link=f'https://flaskshorturl.herokuapp.com/{short_url}')
-
-# this is the home route should just render the for
     elif request.method == 'GET':
         html_to_send = render_template('index.html')
         return html_to_send
@@ -74,21 +69,14 @@ def members_handler():
 
 @app.route('/<shorturl>', methods=['GET'])
 def redirect_shorturl(shorturl):
-    # this takes the url from the user
+    # get long url stored in db by taking in user input
     url = URLModel.query.filter_by(short_url=shorturl).first()
-    print(url)
-    # long_url = url['url']
-    # print(long_url)
-    # this is then where we need to grab the long url from the db
-    # redirect using url.url or something?
-    # then we redirect the page
-
+    # redirect user to that url
     return redirect(url.url)
-    # return {'message': f'Oops! {url}'}
 
 
 # handle 404
-@app.errorhandler(404)
+@app.errorhandler(exceptions.NotFound)
 def page_not_found(e):
     path = request.path
     return render_template('errors/404.html', path=path), 404
@@ -96,14 +84,14 @@ def page_not_found(e):
 # handle 405
 
 
-@app.errorhandler(405)
+@app.errorhandler(exceptions.BadRequest)
 def page_not_found(e):
     path = request.path
     return render_template('errors/405.html', path=path), 405
 
 
 # handle 500
-@app.errorhandler(500)
+@app.errorhandler(exceptions.InternalServerError)
 def page_not_found(e):
     path = request.path
     return render_template('errors/500.html', path=path), 500
