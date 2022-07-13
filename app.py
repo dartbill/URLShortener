@@ -79,8 +79,8 @@ def redirect_shorturl(shorturl):
     # this is then where we need to grab the long url from the db
     # redirect using url.url or something?
     # then we redirect the page
-    # return redirect(url)
-    return {'message': f'Oops! {url}'}
+    return redirect(url)
+    # return {'message': f'Oops! {url}'}
 
 
 @app.errorhandler(exceptions.NotFound)
