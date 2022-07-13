@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from werkzeug import exceptions
 import os
-import html 
+import html
 
 # connect to sql db on heroku
 app = Flask(__name__)
@@ -47,23 +47,21 @@ def members_handler():
         # check to see if we have got the url in db if so, reroute to the url
         # get all long urls from db and check to see if form data matches anything in db
         # this below might work?? not sure what it returns if no query is found
-        # if URLModel.query.filter_by(url=data['url']):
-        #     # if this is true then we get the short url that links to the long one and redirect
-        #     pass
-        # else:
-        # if not do the below
-        # this gets the form input
-        short_url = get_random_string(6)
+        if URLModel.query.filter_by(url=data['url']):
+            #     # if this is true then we get the short url that links to the long one and redirect
+            return {'message': 'this is true'}
+        else:
+            # if not do the below
+            # this gets the form input
+            short_url = get_random_string(6)
         # do something here to shorten url
         # below adds long url and short url to the model
-        new_url = URLModel(url=data, short_url=short_url)
+            new_url = URLModel(url=data, short_url=short_url)
         # below adds new_url to the db
-        db.session.add(new_url)
+            db.session.add(new_url)
         # below saves the data
-        db.session.commit()
-        # return redirect(f'https://flaskshorturl.herokuapp.com/{short_url}')
-        return render_template('index.html', link=f'https://flaskshorturl.herokuapp.com/{short_url}')
-        # return {'WORKING '}
+            db.session.commit()
+            return render_template('index.html', link=f'https://flaskshorturl.herokuapp.com/{short_url}')
 
 # this is the home route should just render the for
     elif request.method == 'GET':
@@ -86,26 +84,26 @@ def redirect_shorturl(shorturl):
     # return {'message': f'Oops! {url}'}
 
 
-
-#handle 404
+# handle 404
 @app.errorhandler(404)
 def page_not_found(e):
     path = request.path
-    return render_template('errors/404.html',path=path),404
+    return render_template('errors/404.html', path=path), 404
 
-#handle 405
+# handle 405
+
+
 @app.errorhandler(405)
 def page_not_found(e):
     path = request.path
-    return render_template('errors/405.html',path=path),405
+    return render_template('errors/405.html', path=path), 405
 
 
-#handle 500
+# handle 500
 @app.errorhandler(500)
 def page_not_found(e):
     path = request.path
-    return render_template('errors/500.html',path=path),500
-
+    return render_template('errors/500.html', path=path), 500
 
 
 if __name__ == "__main__":
