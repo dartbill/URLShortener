@@ -47,21 +47,24 @@ def members_handler():
     if request.method == 'POST':
         # get data from form
         data = request.form['url']
-        # check to see if the url has been used before
-        if URLModel.query.filter_by(url=data).first() is not None:
-            main = URLModel.query.filter_by(url=data).first()
-            # return link already stored in db
-            return render_template('link.html', link=f'https://flaskshorturl.herokuapp.com/{main.short_url}')
+        if not data:
+            return render_template('link.html', text='Input a URL')
         else:
-            # generate random string of characters
-            short_url = get_random_string(10)
-            # create new url obg
-            new_url = URLModel(url=data, short_url=short_url)
-            # add url to db
-            db.session.add(new_url)
-            db.session.commit()
-            # render link on page
-            return render_template('index.html', link=f'https://flaskshorturl.herokuapp.com/{short_url}')
+            # check to see if the url has been used before
+            if URLModel.query.filter_by(url=data).first() is not None:
+                main = URLModel.query.filter_by(url=data).first()
+                # return link already stored in db
+                return render_template('link.html', link=f'https://flaskshorturl.herokuapp.com/{main.short_url}')
+            else:
+                # generate random string of characters
+                short_url = get_random_string(10)
+                # create new url obg
+                new_url = URLModel(url=data, short_url=short_url)
+                # add url to db
+                db.session.add(new_url)
+                db.session.commit()
+                # render link on page
+                return render_template('index.html', link=f'https://flaskshorturl.herokuapp.com/{short_url}')
     elif request.method == 'GET':
         html_to_send = render_template('index.html')
         return html_to_send
