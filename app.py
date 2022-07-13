@@ -46,21 +46,21 @@ def members_handler():
         # check to see if we have got the url in db if so, reroute to the url
         # get all long urls from db and check to see if form data matches anything in db
         # this below might work?? not sure what it returns if no query is found
-        if URLModel.query.filter_by(url=data['url']):
-            # if this is true then we get the short url that links to the long one and redirect
-            pass
-        else:
-            # if not do the below
-            # this gets the form input
-            short_url = get_random_string(6)
+        # if URLModel.query.filter_by(url=data['url']):
+        #     # if this is true then we get the short url that links to the long one and redirect
+        #     pass
+        # else:
+        # if not do the below
+        # this gets the form input
+        short_url = get_random_string(6)
         # do something here to shorten url
         # below adds long url and short url to the model
-            new_url = URLModel(url=data['url'], short_url=short_url)
+        new_url = URLModel(url=data['url'], short_url=short_url)
         # below adds new_url to the db
-            db.session.add(new_url)
+        db.session.add(new_url)
         # below saves the data
-            db.session.commit()
-            return redirect(f'https://flaskshorturl.herokuapp.com/{short_url}')
+        db.session.commit()
+        return redirect(f'https://flaskshorturl.herokuapp.com/{short_url}')
 
 # this is the home route should just render the for
     elif request.method == 'GET':
