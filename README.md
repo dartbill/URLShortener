@@ -8,3 +8,8 @@ This website is a easy way to shorten a URL. It generates a unique URL which wil
 The link to the website is here: https://flaskshorturl.herokuapp.com/
 
 To use the website, input a url and a new short url will be generated for you to save.
+
+## Contributors
+
+- <a href="https://github.com/dartbill">Billie Dartnell</a>
+- <a href="https://github.com/Igormirowski">Igor Mirowski</a>
