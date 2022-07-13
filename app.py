@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from werkzeug import exceptions
 import os
+import html 
 
 # connect to sql db on heroku
 app = Flask(__name__)
@@ -79,23 +80,31 @@ def redirect_shorturl(shorturl):
     # this is then where we need to grab the long url from the db
     # redirect using url.url or something?
     # then we redirect the page
+
     return redirect(url.url)
     # return {'message': f'Oops! {url}'}
 
 
-@app.errorhandler(exceptions.NotFound)
-def handle_404(err):
-    return {'message': f'Oops! {err}'}, 404
+
+#handle 404
+@app.errorhandler(404)
+def page_not_found(e):
+    path = request.path
+    return render_template('errors/404.html',path=path),404
+
+#handle 405
+@app.errorhandler(405)
+def page_not_found(e):
+    path = request.path
+    return render_template('errors/405.html',path=path),405
 
 
-@app.errorhandler(exceptions.BadRequest)
-def handle_400(err):
-    return {'message': f'Oops! {err}'}, 400
+#handle 500
+@app.errorhandler(500)
+def page_not_found(e):
+    path = request.path
+    return render_template('errors/500.html',path=path),500
 
-
-@app.errorhandler(exceptions.InternalServerError)
-def handle_500(err):
-    return {'message': f"It's not you, it's us"}, 500
 
 
 if __name__ == "__main__":
