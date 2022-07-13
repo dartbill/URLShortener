@@ -27,7 +27,7 @@ class URLModel(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     url = db.Column(db.String())
-    short_url = db.Column(db.String())
+    short_url = db.Column(db.String(), unique=True)
 
     def __init__(self, url, short_url):
         self.url = url
@@ -79,7 +79,7 @@ def redirect_shorturl(shorturl):
     # this is then where we need to grab the long url from the db
     # redirect using url.url or something?
     # then we redirect the page
-    return redirect(url)
+    return redirect(url.url)
     # return {'message': f'Oops! {url}'}
 
 
