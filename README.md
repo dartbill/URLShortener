@@ -13,9 +13,10 @@ To use the website, input a url and a new short url will be generated for you to
 ## Installation 
 
 - Clone repo and `cd` into folder
-- Pipenv shell
-- Pipenv install
+- pipenv shell
+- pipenv install
 - pipenv run dev
+- go to port `http://localhost:5000/`
 
 ## Contributors
 
