@@ -47,7 +47,7 @@ def members_handler():
         # check to see if we have got the url in db if so, reroute to the url
         # get all long urls from db and check to see if form data matches anything in db
         # this below might work?? not sure what it returns if no query is found
-        if URLModel.query.filter_by(url=data):
+        if URLModel.query.filter_by(url=data).first() is not None:
             #     # if this is true then we get the short url that links to the long one and redirect
             return {'message': 'this is true'}
         else:
